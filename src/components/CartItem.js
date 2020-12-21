@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react'
 
 const CartItem = ({ img, title, price, amount }) => {
   return (
@@ -6,7 +6,7 @@ const CartItem = ({ img, title, price, amount }) => {
       <img src={img} alt={title} />
       <div>
         <h4>{title}</h4>
-        <h4 className="item-price">${price}</h4>
+        <h4 className="item-price">&euro; {price}</h4>
         {/* remove button */}
         <button className="remove-btn">remove</button>
       </div>
@@ -27,7 +27,7 @@ const CartItem = ({ img, title, price, amount }) => {
         </button>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default CartItem;
+export default CartItem
