@@ -13,19 +13,13 @@ const reducer = (state, action) => {
       return { ...state, cart: [], amount: 0, total: 0 }
 
     case DECREASE:
-      let decreaseCart = []
-      if (action.payload.amount === 1) {
-        decreaseCart = state.cart.filter(
-          (item) => item.id !== action.payload.id,
-        )
-      } else {
-        decreaseCart = state.cart.map((item) => {
-          if (item.id === action.payload.id) {
-            item = { ...item, amount: item.amount - 1 }
-          }
-          return item
-        })
-      }
+      let decreaseCart = state.cart.map((item) => {
+        if (item.id === action.payload.id) {
+          item = { ...item, amount: item.amount - 1 }
+        }
+        return item
+      })
+
       return { ...state, cart: decreaseCart }
 
     case INCREASE:
@@ -60,15 +54,40 @@ const reducer = (state, action) => {
       total = parseFloat(total).toFixed(2)
       return { ...state, amount: amount, total: total }
 
+    case TOGGLE_AMOUNT:
+      return {
+        ...state,
+        cart: state.cart.map((item) => {
+          if (item.id === action.payload.id) {
+            action.payload.toggle === 'incr'
+              ? (item = { ...item, amount: item.amount + 1 })
+              : (item = { ...item, amount: item.amount - 1 })
+          }
+          return item
+        }),
+      }
+
     default:
-      break
+      return state
   }
 
   // if (action.type === CLEAR_CART) {
   //   return { ...state, cart: [], amount: 0, total: 0 }
   // }
-
-  return state
+  // if (action.type === TOGGLE_AMOUNT) {
+  //   return {
+  //     ...state,
+  //     cart: state.cart.map((item) => {
+  //       if (item.id === action.payload.id) {
+  //         action.payload.toggle === 'incr'
+  //           ? (item = { ...item, amount: item.amount + 1 })
+  //           : (item = { ...item, amount: item.amount - 1 })
+  //       }
+  //       return item
+  //     }),
+  //   }
+  // }
+  // return state
 }
 
 export default reducer
