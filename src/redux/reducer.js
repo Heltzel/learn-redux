@@ -1,3 +1,4 @@
+import cartItems from '../cart-items'
 import {
   DECREASE,
   INCREASE,
@@ -7,7 +8,12 @@ import {
   TOGGLE_AMOUNT,
 } from './actions'
 
-const reducer = (state, action) => {
+const initialStore = {
+  cart: cartItems,
+  total: 0,
+  amount: 0,
+}
+const reducer = (state = initialStore, action) => {
   switch (action.type) {
     case CLEAR_CART:
       return { ...state, cart: [], amount: 0, total: 0 }
